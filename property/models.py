@@ -53,7 +53,8 @@ class Flat(models.Model):
     new_building = models.BooleanField('Новостройка', null=True)
 
     liked_by = models.ManyToManyField(
-        User, related_name='liked_flats',
+        User,
+        related_name='liked_flats',
         verbose_name='Кто лайкнул',
         null=True,
         blank=True
@@ -67,3 +68,14 @@ class Complaint(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Кто жаловался')
     flat = models.ForeignKey(Flat, on_delete=models.CASCADE, verbose_name='Квартира, на которую жаловались')
     text = models.TextField('Текст жалобы', null=True)
+
+
+class Owner(models.Model):
+    name = models.CharField('ФИО владельца', max_length=200)
+    phone_number = models.CharField('Номер владельца', max_length=20)
+    pure_phone_number = PhoneNumberField('Нормализованный номер владельца', blank=True)
+    flat = models.ManyToManyField(
+        Flat,
+        related_name='flat_owner',
+        verbose_name='Квартиры в собственности'
+    )
