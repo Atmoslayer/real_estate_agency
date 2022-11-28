@@ -75,7 +75,7 @@ class Complaint(models.Model):
         verbose_name='Квартира, на которую жаловались',
         related_name='complaints'
     )
-    text = models.TextField('Текст жалобы', default='')
+    text = models.TextField('Текст жалобы')
 
 
 class Owner(models.Model):
